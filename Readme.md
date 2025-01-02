@@ -19,7 +19,7 @@ Music App est une application mobile moderne et élégante permettant de lire et
 ### Étapes
 1. Clonez le projet depuis GitHub :
    ```bash
-   git clone https://github.com/votre-utilisateur/music-app.git
+   git clone https://github.com/GildasEdoh/music-project.git
    ```
 2. Ouvrez le projet dans Android Studio.
 3. Synchronisez les dépendances avec Gradle.
@@ -46,7 +46,7 @@ Pour créer un dépôt local et le lier à GitHub, suivez ces étapes :
 
 4. Ajoutez le dépôt distant (remplacez `votre-utilisateur` et `music-app` par vos informations) :
    ```bash
-   git remote add origin https://github.com/votre-utilisateur/music-app.git
+   git remote add origin https://github.com/GildasEdoh/music-project.git
    ```
 
 5. Poussez les modifications vers GitHub :
