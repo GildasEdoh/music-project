@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1E1C5C"
+    tools:context=".MainActivity"
+    android:id="@+id/main">
+
+    <!-- Icone musicale -->
+    <ImageView
+        android:id="@+id/music_icon"
+        android:layout_width="500dp"
+        android:layout_height="250dp"
+        android:src="@drawable/sans"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Titre de l'application -->
+    <TextView
+        android:id="@+id/app_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MYSIC"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/music_icon"
+        android:layout_marginTop="0dp" />
+    <!-- Effet de vague -->
+    <ImageView
+        android:id="@+id/wave_effect"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/music_icon"
+        android:layout_marginTop="10dp"
+        app:tint="#00E1FF" />
+
+    <!-- Texte descriptif -->
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bienvenue sur notre application de gestion de musique locale 🎧🎧"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="140dp"
+        android:gravity="center"
+        android:padding="16dp" />
+    <!-- Bouton en bas -->
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50sp"
+        android:text="Commencer"
+        android:textSize="30dp"
+        android:backgroundTint="#4640FF"
+        android:textColor="#FFFFFF"
+        android:padding="12dp" />
+</RelativeLayout>
