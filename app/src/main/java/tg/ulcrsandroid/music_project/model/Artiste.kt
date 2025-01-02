@@ -1,12 +1,11 @@
 package tg.ulcrsandroid.music_project.model
 
+import io.realm.RealmList
 import io.realm.RealmObject
 
-class Artiste (
-    var id : Int? = null,
-    var nom: String = "",
-    var albums: List<Album> = emptyList(),
+open class Artiste (): RealmObject() {
+    var id : Int? = null
+    var nom: String = ""
+    var albums: RealmList<Album> = RealmList()
     var chansons: String = ""
-): RealmObject() {
-
 }

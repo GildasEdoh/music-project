@@ -1,19 +1,15 @@
-public class Chanson() { // Constructeur sans argument requis par Realm
+package tg.ulcrsandroid.music_project.model
 
-    var id: Long = 0
-    var title: String = ""
-    var artist: String = ""
-    var album: String = ""
-    var data: String = ""
-    var duration: Long = 0
+import io.realm.RealmList
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+import org.bson.types.ObjectId
 
-    // Constructeur personnalisé
-    constructor(id: Long, title: String, artist: String, album: String, data: String, duration: Long) : this() {
-        this.id = id
-        this.title = title
-        this.artist = artist
-        this.album = album
-        this.data = data
-        this.duration = duration
-    }
+open class Chanson () : RealmObject() {
+    @PrimaryKey var id : ObjectId? = null
+    var titre: String? = null
+    var url: String? = null
+    var duree: String? = null
+    var arstistes: RealmList<Artiste> = RealmList()
+    var genre: Genre? = null
 }

@@ -1,12 +1,12 @@
 package tg.ulcrsandroid.music_project
 
-import Chanson
 import android.app.Application
 import android.content.Context
 import android.provider.MediaStore
 import android.util.Log
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import tg.ulcrsandroid.music_project.model.Chanson
 
 class SongApplication : Application() {
     lateinit var realm: Realm
@@ -57,6 +57,7 @@ class SongApplication : Application() {
                 val album = it.getString(albumColumn)
                 val data = it.getString(dataColumn)
                 val duration = it.getLong(durationColumn)
+                Log.i("MUSIC", "title: $title")
             }
             Log.i("MUSIC", "EXECUTION LECTURE")
         }
