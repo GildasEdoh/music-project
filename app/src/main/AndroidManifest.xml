@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
     <!-- Ajoutez les permissions ici -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" android:required="true" />
+
 
     <!-- Si vous ciblez Android 13+, ajoutez cette permission -->
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <application
         android:name=".SongApplication"
         android:allowBackup="true"

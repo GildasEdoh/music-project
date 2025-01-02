@@ -33,7 +33,6 @@ class Acceuil : AppCompatActivity() {
         // Lancer l'activite main
         val intentMain = Intent(this, MainActivity::class.java)
         startActivity(intentMain)
-        finish()
         Log.i(TAG, "Fin de l'activite main ")
     }
 }
