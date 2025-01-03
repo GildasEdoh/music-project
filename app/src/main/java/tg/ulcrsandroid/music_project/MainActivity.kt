@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         ui = ActivityMainBinding.inflate(layoutInflater)
         setContentView(ui.root)
-        setSupportActionBar(ui.toolbar)
+        //setSupportActionBar(ui.toolbar)
         setTitle("MYSIC")
 
         realm = Realm.getDefaultInstance()
@@ -113,7 +113,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Log.i("MUSIC", "Tout est a jour")
             }
-            //Log.i("MusicApp", "Nombre total de chansons : $count")
         }
         return songs
     }

@@ -1,5 +1,6 @@
 package tg.ulcrsandroid.music_project
 
+import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import org.bson.types.ObjectId
 import tg.ulcrsandroid.music_project.databinding.SongBinding
@@ -15,6 +16,14 @@ class SongViewHolder(val ui: SongBinding): RecyclerView.ViewHolder(ui.root) {
             field = song
             ui.titre.text = song.titre
             val st = song.titre
-           // ui.artiste.text = song.arstistes[0]?.nom
+            ui.duree.text = convertMilliSecondsToMin(song.duree)
+            //ui.artiste.text = song.artistePrincipal?.nom
         }
+    @SuppressLint("DefaultLocale")
+    fun convertMilliSecondsToMin(duree: Long?) : String {
+        val sec = duree?.div(1000)
+        val min = (sec?.toFloat())?.div(60)
+        val s = String.format("%.2f", min)
+        return s.replace(',', ':')
+    }
 }
