@@ -9,62 +9,76 @@
     tools:context=".MainActivity"
     android:id="@+id/main">
 
-    <!-- Icone musicale -->
-    <ImageView
-        android:id="@+id/music_icon"
-        android:layout_width="500dp"
-        android:layout_height="250dp"
-        android:src="@drawable/sans"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
+        <!-- Icône musicale -->
+        <ImageView
+            android:id="@+id/music_icon"
+            android:layout_width="500dp"
+            android:layout_height="250dp"
+            android:src="@drawable/sans"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
 
-    <!-- Titre de l'application -->
-    <TextView
-        android:id="@+id/app_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MYSIC"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/music_icon"
-        android:layout_marginTop="0dp" />
-    <!-- Effet de vague -->
-    <ImageView
-        android:id="@+id/wave_effect"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/logo"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/music_icon"
-        android:layout_marginTop="10dp"
-        app:tint="#00E1FF" />
+        <!-- Titre de l'application -->
+        <TextView
+            android:id="@+id/app_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MYSIC"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/music_icon"
+            android:layout_marginTop="10dp" />
 
-    <!-- Texte descriptif -->
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bienvenue sur notre application de gestion de musique locale 🎧🎧"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="140dp"
-        android:gravity="center"
-        android:padding="16dp" />
-    <!-- Bouton en bas -->
-    <Button
-        android:id="@+id/start_button"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50sp"
-        android:text="Commencer"
-        android:textSize="30dp"
-        android:backgroundTint="#4640FF"
-        android:textColor="#FFFFFF"
-        android:padding="12dp" />
-</RelativeLayout>
+        <!-- Effet de vague -->
+        <ImageView
+            android:id="@+id/wave_effect"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/logo"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/app_title"
+            android:layout_marginTop="20dp"
+            app:tint="#00E1FF" />
+
+        <!-- Texte descriptif -->
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bienvenue sur notre application de gestion de musique locale 🎧🎧"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/wave_effect"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:padding="16dp" />
+
+        <!-- Texte de progression -->
+        <TextView
+            android:id="@+id/loading_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/loading_bar"
+            android:layout_marginBottom="10dp"
+            android:text="Loading... 0%"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:gravity="center" />
+
+        <!-- Barre de chargement horizontale -->
+        <ProgressBar
+            android:id="@+id/loading_bar"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:indeterminate="false"
+            android:max="100"
+            android:progressTint="#00E1FF" />
+    </RelativeLayout>

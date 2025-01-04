@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">music-project</string>
+    <string name="app_name">MYSIC</string>
+    <string name="search">icon_recherche</string>
+    <string name="settings">icon_parametres</string>
 </resources>
