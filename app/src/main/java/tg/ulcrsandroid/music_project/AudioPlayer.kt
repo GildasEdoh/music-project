@@ -6,8 +6,8 @@ import android.media.MediaPlayer
 class AudioPlayer(private val context : Context) {
     private var mediaPlayer: MediaPlayer? = null
 
-    fun play(url: String) {
-        //stop()
+    fun play(url: String?) {
+        stop()
         mediaPlayer = MediaPlayer().apply {
             setDataSource(url)
             setOnPreparedListener{start()}

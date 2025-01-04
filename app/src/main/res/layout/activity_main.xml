@@ -50,7 +50,8 @@
         android:layout_height="450dp"
         android:fitsSystemWindows="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:context=".MainActivity" />
+        tools:context=".MainActivity"
+        android:background="#1E1C5C"/>
 
 
     <LinearLayout
@@ -66,8 +67,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/acceuil"
             android:color="@color/white"
+            android:background="@color/white"
             android:padding="8dp" />
 
         <ImageView
@@ -75,7 +77,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/ic_action_favorite"
             android:color="@color/white"
             android:padding="8dp" />
 

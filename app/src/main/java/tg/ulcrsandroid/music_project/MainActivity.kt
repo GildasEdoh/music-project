@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var realm : Realm
     private lateinit var songAdapter: SongAdapter
     private lateinit var ui : ActivityMainBinding
+    private lateinit var audioPlayer : AudioPlayer
+    private var requetteRealm = RequettesRealm()
+    private var chansonEnCous: Chanson? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ui = ActivityMainBinding.inflate(layoutInflater)
@@ -34,12 +37,13 @@ class MainActivity : AppCompatActivity() {
         //setSupportActionBar(ui.toolbar)
         setTitle("MYSIC")
 
-        realm = Realm.getDefaultInstance()
+        this.realm = Realm.getDefaultInstance()
         enableEdgeToEdge()
 
        // setContentView(R.layout.activity_main)
         Log.i("MUSIC", "COURS MMMMMMMMMMMMMM")
         checkAndRequestPermissions(this)
+        audioPlayer = AudioPlayer(this) // Initialisation d'audioPlayer
 
         //setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(ui.recycler.id)) { v, insets ->
@@ -55,8 +59,23 @@ class MainActivity : AppCompatActivity() {
         val songAdapter = SongAdapter(songs as RealmResults<Chanson>)
         ui.recycler.adapter = songAdapter
         ui.recycler.setHasFixedSize( true)
-        realm.close()
+
+        // Ecouteur pour les clics sur les elements
+        songAdapter.onItemClick = this::onItemClick
+        // realm.close()
     }
+
+    // Lecture Chanson
+    private fun onItemClick(idChanson: ObjectId?) {
+        this.chansonEnCous = requetteRealm.getChansonById(idChanson, realm)
+        Log.i("ACTION", "Action sur la chanson ${chansonEnCous?.url}")
+
+        if (this.chansonEnCous != null) {
+            Log.i("ACTION", "Lecture de la chanson ${chansonEnCous?.url}")
+            audioPlayer.play(this.chansonEnCous?.url)
+        }
+    }
+
     //
     private fun checkAndRequestPermissions(context: Context) {
         val permission = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
@@ -207,6 +226,9 @@ fun getSongs(cursor: Cursor): List<SongData> {
             Log.i("Mise a jour .....", "maj")
             r.where(Chanson::class.java).findAll().deleteAllFromRealm()
         }
-        this.realm.close()
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+            //audioPlayer.stop() // Libérer les ressources
     }
 }
