@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -15,7 +14,6 @@ import androidx.core.view.WindowInsetsCompat
 import tg.ulcrsandroid.music_project.databinding.ActivityAcceuilBinding
 
 class Acceuil : AppCompatActivity() {
-
     private lateinit var ui: ActivityAcceuilBinding
     private val totalDuration = 5000L // Temps total de chargement (en ms)
     private val updateInterval = totalDuration / 100 // Intervalle de mise à jour
@@ -51,23 +49,19 @@ class Acceuil : AppCompatActivity() {
                     handler.postDelayed(this, updateInterval)
                 } else {
                     // Lorsque le chargement est terminé, passer à l'écran suivant
-                    startActivity(Intent(this@Acceuil, DashBoard::class.java))
-                    finish()
+                    startDashbord()
                 }
             }
         }
-
         // Démarrer le chargement
         handler.post(runnable)
-
     }
-
-
-    private fun onButtonStart(view: View?) {
-        Log.i(TAG, "Clic sur le button commencer ")
+    private fun startDashbord() {
+        Log.i(TAG, "Lancement du dashboard ")
         // Lancer l'activite main
-        val intentMain = Intent(this, DashBoard::class.java)
-        startActivity(intentMain)
+        val intentDashBoard = Intent(this, DashBoard::class.java)
+        startActivity(intentDashBoard)
+        finish()
         Log.i(TAG, "Fin de l'activite main ")
     }
 }

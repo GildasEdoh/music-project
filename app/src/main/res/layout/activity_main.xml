@@ -31,7 +31,7 @@
             android:layout_weight="1"
             android:hint="Search..."
             android:padding="8dp"
-            android:background="@drawable/ic_launcher_background"
+            android:background="@drawable/background_with_ripple"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
 
@@ -40,7 +40,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="8dp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/background_with_ripple"
             android:color="@color/white" />
     </LinearLayout>
 
@@ -96,7 +96,6 @@
             android:src="@drawable/ic_launcher_background"
             android:color="@color/white"
             android:padding="8dp" />
-
         <ImageView
             android:id="@+id/settings_icon"
             android:layout_width="0dp"

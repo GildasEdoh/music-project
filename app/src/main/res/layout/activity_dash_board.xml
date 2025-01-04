@@ -20,7 +20,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023">
 
-
         <ImageView
             android:id="@+id/parametres"
             android:layout_width="70dp"
@@ -62,7 +61,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <!-- GridLayout contenant 4 cases -->
     <GridLayout
         android:layout_width="500dp"
@@ -78,17 +76,19 @@
 
         <!-- Tous les morceaux -->
         <LinearLayout
-            android:id="@+id/bouton_morceau"
+            android:id="@+id/morceaux"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_row="0"
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_columnWeight="1"
-            android:background="#400678"
+            android:background="@drawable/background_with_ripple"
+            android:focusable="true"
             android:gravity="center"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            android:clickable="true">
             <ImageView
                 android:id="@+id/music_note_icon"
                 android:layout_width="40dp"
@@ -98,85 +98,91 @@
                 android:id="@+id/all_songs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="      morceaux"
+                android:text="morceaux"
                 android:textColor="@android:color/white"/>
-    </LinearLayout>
+        </LinearLayout>
 
-    <!-- Favoris -->
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_row="0"
-        android:layout_rowWeight="1"
-        android:layout_column="1"
-        android:layout_columnWeight="1"
-        android:background="#400678"
-        android:gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp">
-    <ImageView
-        android:id="@+id/favorites_icon"
-        android:layout_width="40dp"
-        android:layout_height="47dp"
-        android:src="@drawable/ic_action_favorite"/>
-    <TextView
-        android:id="@+id/favorites"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Favoris"
-        android:textColor="@android:color/white"/>
-</LinearLayout>
+        <!-- Favoris -->
+        <LinearLayout
+            android:id="@+id/favoris"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_row="0"
+            android:layout_rowWeight="1"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:background="@drawable/background_with_ripple"
+            android:focusable="true"
+            android:gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true">
+            <ImageView
+                android:id="@+id/favorites_icon"
+                android:layout_width="40dp"
+                android:layout_height="47dp"
+                android:src="@drawable/ic_action_favorite"/>
+            <TextView
+                android:id="@+id/favorites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Favoris"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
 
-    <!-- PlayList -->
-<LinearLayout
-android:layout_width="0dp"
-android:layout_height="0dp"
-android:layout_row="1"
-android:layout_rowWeight="1"
-android:layout_column="0"
-android:layout_columnWeight="1"
-android:background="#400678"
-android:gravity="center"
-android:layout_marginEnd="8dp"
-    android:layout_marginTop="8dp">
-<ImageView
-android:id="@+id/playlist_icon"
-android:layout_width="40dp"
-android:layout_height="47dp"
-android:src="@drawable/dossier"/>
-<TextView
-android:id="@+id/playlist"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="   PlayList"
-android:textColor="@android:color/white"/>
-    </LinearLayout>
-
+            <!-- PlayList -->
+        <LinearLayout
+            android:id="@+id/playlist"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_row="1"
+            android:layout_rowWeight="1"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:background="@drawable/background_with_ripple"
+            android:focusable="true"
+            android:gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true">
+            <ImageView
+                android:id="@+id/playlist_icon"
+                android:layout_width="40dp"
+                android:layout_height="47dp"
+                android:src="@drawable/dossier"/>
+            <TextView
+                android:id="@+id/playlist_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="   PlayList"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
     <!-- Récents -->
-<LinearLayout
-android:layout_width="0dp"
-android:layout_height="0dp"
-android:layout_row="1"
-android:layout_rowWeight="1"
-android:layout_column="1"
-android:layout_columnWeight="1"
-android:background="#400678"
-android:gravity="center"
-android:layout_marginStart="8dp"
-android:layout_marginTop="8dp">
-<ImageView
-android:id="@+id/recent_icon"
-android:layout_width="40dp"
-android:layout_height="47dp"
-android:src="@drawable/ic_time_foreground"/>
-<TextView
-android:id="@+id/recent"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="Récents"
-android:textColor="@android:color/white"/>
-    </LinearLayout>
-
+        <LinearLayout
+            android:id="@+id/recents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_row="1"
+            android:layout_rowWeight="1"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:background="@drawable/background_with_ripple"
+            android:focusable="true"
+            android:gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true">
+            <ImageView
+                android:id="@+id/recent_icon"
+                android:layout_width="40dp"
+                android:layout_height="47dp"
+                android:src="@drawable/ic_time_foreground"/>
+            <TextView
+                android:id="@+id/recent_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Récents"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
     </GridLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

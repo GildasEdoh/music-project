@@ -4,7 +4,8 @@ buildscript {
     }
     dependencies {
         classpath("io.realm:realm-gradle-plugin:10.15.1")
-        classpath ("com.android.tools.build:gradle:7.0.0")
+        classpath ("com.android.tools.build:gradle:8.0.2")
+
     }
 }
 
