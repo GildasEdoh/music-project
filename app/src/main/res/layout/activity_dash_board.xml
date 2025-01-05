@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DashBoard"
-    android:background="#1E1C5C">
+    android:background="#1E1C5C"
+    tools:context=".DashBoard">
 
     <!-- Barre contenant les paramètres, le titre et la recherche -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,8 +60,49 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <!-- GridLayout contenant 4 cases -->
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/player_controls"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.949">
+
+        <!-- Barre de progression -->
+        <SeekBar
+            android:id="@+id/progress_bar"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:progress="50"
+            android:progressTint="#1F877E"
+            android:secondaryProgressTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/play_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Bouton Play -->
+        <ImageView
+            android:id="@+id/play_button"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_play_foreground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/progress_bar"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <GridLayout
+        android:id="@+id/gridLayout"
         android:layout_width="500dp"
         android:layout_height="259dp"
         android:columnCount="2"
@@ -83,23 +123,25 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_columnWeight="1"
-            android:background="@drawable/background_with_ripple"
-            android:focusable="true"
-            android:gravity="center"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:clickable="true">
+            android:background="#1F877E"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
+
             <ImageView
                 android:id="@+id/music_note_icon"
                 android:layout_width="40dp"
                 android:layout_height="47dp"
-                android:src="@drawable/ic_action_headphones"/>
+                android:src="@drawable/ic_action_headphones" />
+
             <TextView
                 android:id="@+id/all_songs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="morceaux"
-                android:textColor="@android:color/white"/>
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <!-- Favoris -->
@@ -111,26 +153,28 @@
             android:layout_rowWeight="1"
             android:layout_column="1"
             android:layout_columnWeight="1"
-            android:background="@drawable/background_with_ripple"
-            android:focusable="true"
-            android:gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
-            android:clickable="true">
+            android:background="#1F877E"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
+
             <ImageView
                 android:id="@+id/favorites_icon"
                 android:layout_width="40dp"
                 android:layout_height="47dp"
-                android:src="@drawable/ic_action_favorite"/>
+                android:src="@drawable/ic_action_favorite" />
+
             <TextView
                 android:id="@+id/favorites"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Favoris"
-                android:textColor="@android:color/white"/>
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
-            <!-- PlayList -->
+        <!-- PlayList -->
         <LinearLayout
             android:id="@+id/playlist"
             android:layout_width="0dp"
@@ -139,25 +183,27 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_columnWeight="1"
-            android:background="@drawable/background_with_ripple"
-            android:focusable="true"
-            android:gravity="center"
-            android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
-            android:clickable="true">
+            android:layout_marginEnd="8dp"
+            android:background="#1F877E"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
+
             <ImageView
                 android:id="@+id/playlist_icon"
                 android:layout_width="40dp"
                 android:layout_height="47dp"
-                android:src="@drawable/dossier"/>
+                android:src="@drawable/dossier" />
+
             <TextView
                 android:id="@+id/playlist_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="   PlayList"
-                android:textColor="@android:color/white"/>
+                android:textColor="@android:color/white" />
         </LinearLayout>
-    <!-- Récents -->
+        <!-- Récents -->
         <LinearLayout
             android:id="@+id/recents"
             android:layout_width="0dp"
@@ -166,23 +212,26 @@
             android:layout_rowWeight="1"
             android:layout_column="1"
             android:layout_columnWeight="1"
-            android:background="@drawable/background_with_ripple"
-            android:focusable="true"
-            android:gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:clickable="true">
+            android:background="#1F877E"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
+
             <ImageView
                 android:id="@+id/recent_icon"
                 android:layout_width="40dp"
                 android:layout_height="47dp"
-                android:src="@drawable/ic_time_foreground"/>
+                android:src="@drawable/ic_time_foreground" />
+
             <TextView
                 android:id="@+id/recent_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Récents"
-                android:textColor="@android:color/white"/>
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </GridLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

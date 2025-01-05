@@ -56,9 +56,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
+        android:layout_height="98dp"
         android:background="#1E1C5C"
+        android:orientation="horizontal"
         android:padding="8dp"
         android:weightSum="5">
 
@@ -67,45 +67,45 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/acceuil"
-            android:color="@color/white"
             android:background="@color/white"
-            android:padding="8dp" />
+            android:color="@color/white"
+            android:padding="8dp"
+            android:src="@drawable/acceuil" />
 
         <ImageView
             android:id="@+id/favorite_icon"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="68dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_action_favorite"
             android:color="@color/white"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:src="@drawable/ic_action_favorite" />
 
         <ImageView
             android:id="@+id/star_icon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_launcher_background"
             android:color="@color/white"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:src="@drawable/ic_launcher_background" />
 
         <ImageView
             android:id="@+id/music_icon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_launcher_background"
             android:color="@color/white"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:src="@drawable/ic_launcher_background" />
+
         <ImageView
             android:id="@+id/settings_icon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_launcher_background"
             android:color="@color/white"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:src="@drawable/ic_launcher_background" />
     </LinearLayout>
-
 </LinearLayout>
