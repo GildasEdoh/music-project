@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1E1C5C"
+    android:background="#240E45"
     tools:context=".DashBoard">
 
     <!-- Barre contenant les paramètres, le titre et la recherche -->
@@ -81,7 +81,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:progress="50"
-            android:progressTint="#1F877E"
+            android:progressTint="#1F6B87"
             android:secondaryProgressTint="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/play_button"

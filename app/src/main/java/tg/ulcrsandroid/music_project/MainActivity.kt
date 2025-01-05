@@ -1,9 +1,12 @@
 package tg.ulcrsandroid.music_project
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -30,6 +33,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var audioPlayer : AudioPlayer
     private var requetteRealm = RequettesRealm()
     private var chansonEnCous: Chanson? = null
+    private var nbrClic = 0
+    private var precChanson : Chanson? = null
+    var TAG = "MUSIC"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ui = ActivityMainBinding.inflate(layoutInflater)
@@ -69,11 +75,33 @@ class MainActivity : AppCompatActivity() {
     private fun onItemClick(idChanson: ObjectId?) {
         this.chansonEnCous = requetteRealm.getChansonById(idChanson, realm)
         Log.i("ACTION", "Action sur la chanson ${chansonEnCous?.url}")
-
         if (this.chansonEnCous != null) {
+                // Lancer lecteur
+            if (precChanson == chansonEnCous) {
+
+            }
+            precChanson = this.chansonEnCous
+            startLecteur(chansonEnCous)
+
             Log.i("ACTION", "Lecture de la chanson ${chansonEnCous?.url}")
-            audioPlayer.play(this.chansonEnCous?.url)
         }
+    }
+
+    // Fonction pour lancer le lecteur
+    private fun startLecteur(chanson: Chanson?) {
+        Log.i(TAG, "Lancement du lecteur ")
+        // Lancer le service lecteur
+        val intentService = Intent(this, AudioPlayerService::class.java).apply {
+            putExtra("url", chanson?.url)
+        }
+        startService(intentService)
+        // Lancer l'activite Lecteur
+        val intentLecteur = Intent(this, Lecteur::class.java)
+        intentLecteur.putExtra("idChanson", chanson?.id)
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({
+            startActivity(intentLecteur)
+        }, 1000)
     }
 
     //

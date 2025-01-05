@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Musicproject"
         tools:targetApi="31">
+        <service android:name=".AudioPlayerService"
+            android:enabled="true"
+            android:exported="false" />
         <activity
             android:name=".Lecteur"
             android:exported="false" />

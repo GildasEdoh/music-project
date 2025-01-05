@@ -7,53 +7,66 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="@color/white"
-        android:background="#1E1C5C"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:layout_marginTop="50dp"/>
-    <!-- Barre de recherche -->
+    <!-- Barre supérieure -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
-        android:background="@color/white">
+        android:background="#1E1C5C"
+        android:elevation="4dp"
+        android:layout_marginTop="50dp">
 
-        <EditText
-            android:id="@+id/search_bar"
+        <!-- Bouton de retour -->
+        <ImageView
+            android:id="@+id/back_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_action_previous_item"
+            android:contentDescription="Back"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Barre de recherche -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:hint="Search..."
-            android:padding="8dp"
             android:background="@drawable/background_with_ripple"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/search_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/background_with_ripple"
-            android:color="@color/white" />
+            <EditText
+                android:id="@+id/search_bar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Search..."
+                android:background="@android:color/transparent"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <!-- Icone de recherche -->
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_recherche_foreground"
+                android:contentDescription="Search" />
+        </LinearLayout>
+
     </LinearLayout>
 
+    <!-- RecyclerView pour la liste -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:fitsSystemWindows="true"
+        android:layout_height="600dp"
+        android:background="#1E1C5C"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:context=".MainActivity"
-        android:background="#1E1C5C"/>
+        tools:context=".MainActivity" />
 
-
+    <!-- Barre de navigation en bas -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="98dp"
@@ -64,48 +77,43 @@
 
         <ImageView
             android:id="@+id/home_icon"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
-            android:background="@color/white"
-            android:color="@color/white"
             android:padding="8dp"
-            android:src="@drawable/acceuil" />
+            android:src="@drawable/ic_home_foreground" />
 
         <ImageView
             android:id="@+id/favorite_icon"
-            android:layout_width="0dp"
-            android:layout_height="68dp"
+            android:layout_width="20dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
-            android:color="@color/white"
-            android:padding="8dp"
+            android:padding="10dp"
             android:src="@drawable/ic_action_favorite" />
 
         <ImageView
-            android:id="@+id/star_icon"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:color="@color/white"
-            android:padding="8dp"
-            android:src="@drawable/ic_launcher_background" />
-
-        <ImageView
             android:id="@+id/music_icon"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
-            android:color="@color/white"
-            android:padding="8dp"
-            android:src="@drawable/ic_launcher_background" />
+            android:padding="10dp"
+
+            android:src="@drawable/dossier" />
 
         <ImageView
-            android:id="@+id/settings_icon"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/time_icon"
+            android:layout_width="20dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
-            android:color="@color/white"
             android:padding="8dp"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/ic_time_foreground" />
+
+        <ImageView
+            android:id="@+id/setting_icon"
+            android:layout_width="20dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:src="@drawable/ic_setting_foreground" />
     </LinearLayout>
 </LinearLayout>

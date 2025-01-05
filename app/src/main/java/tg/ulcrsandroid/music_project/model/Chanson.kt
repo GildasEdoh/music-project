@@ -14,6 +14,9 @@ open class Chanson () : RealmObject() {
     var arstistes: RealmList<Artiste> = RealmList()
     var genre: Genre? = null
     var album: Album? =  null
+    var isPlaying: Boolean = false
+    var nbrOfplay: Int = 0
+    var recentlyPlayed = false
 
     companion object {
         val ID = "id"

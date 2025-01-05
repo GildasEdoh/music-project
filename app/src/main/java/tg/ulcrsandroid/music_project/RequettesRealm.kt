@@ -15,5 +15,10 @@ class RequettesRealm {
         }
         return chanson
     }
+    fun increaseNbrPlay(idChanson: ObjectId?, realm: Realm) {
+        realm.executeTransaction {
+
+        }
+    }
 
 }
