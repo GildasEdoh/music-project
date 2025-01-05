@@ -7,11 +7,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import io.realm.Realm
+import tg.ulcrsandroid.music_project.RequettesRealm
 import tg.ulcrsandroid.music_project.databinding.ActivityDashBoardBinding
 
 class DashBoard : AppCompatActivity() {
     private lateinit var ui: ActivityDashBoardBinding
     var TAG = "MUSIC"
+    private lateinit var realm: Realm
+    private var requettesRealm = RequettesRealm()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ui = ActivityDashBoardBinding.inflate(layoutInflater)
@@ -23,27 +27,28 @@ class DashBoard : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        var musique_layout = ui.morceaux
-        musique_layout.setOnClickListener {
+        var musiqueLayout = ui.morceaux
+        musiqueLayout.setOnClickListener {
             Log.i("DEBUG", "Clic sur morceaux")
             startMain()
         }
 
-        var favoris_layout = ui.favoris
-        favoris_layout.setOnClickListener {
+        var favorisLayout = ui.favoris
+        favorisLayout.setOnClickListener {
             Log.i("DEBUG", "Clic sur favoris")
         }
 
-        var recent_layout = ui.recents
-        recent_layout.setOnClickListener{
+        var recentLayout = ui.recents
+        recentLayout.setOnClickListener{
             Log.i("DEBUG", "Clic sur recents")
         }
 
-        var playlist_layout = ui.playlist
-        playlist_layout.setOnClickListener{
+        var playlistLayout = ui.playlist
+        playlistLayout.setOnClickListener{
             Log.i("DEBUG", "Clic sur playlist")
         }
-
+        realm = Realm.getDefaultInstance()
+        ui.nbrSongs.text = requettesRealm.countRealmObject(realm).toString()
     }
     fun startMain() {
         Log.i(TAG, "Lancement du du main ")

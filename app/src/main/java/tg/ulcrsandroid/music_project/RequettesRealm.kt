@@ -15,6 +15,9 @@ class RequettesRealm {
         }
         return chanson
     }
+    fun countRealmObject(realm: Realm) : Long {
+        return realm.where(Chanson::class.java).count()
+    }
     fun increaseNbrPlay(idChanson: ObjectId?, realm: Realm) {
         realm.executeTransaction {
 
