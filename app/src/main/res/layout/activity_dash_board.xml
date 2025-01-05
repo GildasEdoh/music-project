@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#240E45"
-    tools:context=".DashBoard">
+    tools:context=".ui.DashBoard">
 
     <!-- Barre contenant les paramètres, le titre et la recherche -->
     <androidx.constraintlayout.widget.ConstraintLayout

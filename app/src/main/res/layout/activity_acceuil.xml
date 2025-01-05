@@ -6,9 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1E1C5C"
-    tools:context=".MainActivity"
+    tools:context=".ui.MainActivity"
     android:id="@+id/main">
-
         <!-- Icône musicale -->
         <ImageView
             android:id="@+id/music_icon"

@@ -11,7 +11,7 @@ import tg.ulcrsandroid.music_project.model.Chanson
 
 class SongAdapter(val songs: RealmResults<Chanson>) : RecyclerView.Adapter<SongViewHolder>(){
     lateinit var onItemClick: (ObjectId?) -> Unit
-//    lateinit var onEditClick: (ObjectId?) -> Unit
+    //lateinit var onEditClick: (ObjectId?) -> Unit
     init {
         songs.addChangeListener { _, changeSet ->
             for (change in changeSet.deletionRanges) {
@@ -39,7 +39,7 @@ class SongAdapter(val songs: RealmResults<Chanson>) : RecyclerView.Adapter<SongV
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         holder.song = songs[position]
-        holder.onItemClick =onItemClick
+        holder.onItemClick = onItemClick
         //holder.onEditClick = onEditClick
         holder.onDeleteClick = { adapterPosition ->
             val songToDelete = songs[adapterPosition]
@@ -54,8 +54,7 @@ class SongAdapter(val songs: RealmResults<Chanson>) : RecyclerView.Adapter<SongV
             song.deleteFromRealm()
         }
         //realm.close()
-        /*
-        notifyItemRemoved(position)
+        /*notifyItemRemoved(position)
         Snackbar.make(
             (context as Activity).findViewById(android.R.id.content),
             "Chanson supprimée",

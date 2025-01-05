@@ -64,7 +64,7 @@
         android:layout_height="600dp"
         android:background="#1E1C5C"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:context=".MainActivity" />
+        tools:context=".ui.MainActivity" />
 
     <!-- Barre de navigation en bas -->
     <LinearLayout

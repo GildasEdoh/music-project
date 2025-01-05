@@ -3,6 +3,8 @@ package tg.ulcrsandroid.music_project
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
+import android.view.View
+import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import org.bson.types.ObjectId
@@ -17,7 +19,7 @@ class SongViewHolder(val ui: SongBinding): RecyclerView.ViewHolder(ui.root) {
     lateinit var onDeleteClick: (Int) -> Unit // Callback pour la suppression
     init {
         ui.root.setOnClickListener { onClick() }
-            // ui.menuIcon.setOnClickListener { view -> showPopupMenu(view) }
+        ui.menuIcon.setOnClickListener { view -> showPopupMenu(view) }
     }
 
     var song: Chanson? = null
@@ -42,11 +44,9 @@ class SongViewHolder(val ui: SongBinding): RecyclerView.ViewHolder(ui.root) {
         Log.i("MYSIC", "clic sur une chanson $idChanson")
         onItemClick(idChanson)
     }
+
     // modification thibaute
-
     //Affiche le PopupMenu avec toutes les options
-
-    /*
     private fun showPopupMenu(view: View) {
         val popupMenu = PopupMenu(view.context, view)
         val inflater = popupMenu.menuInflater
@@ -56,12 +56,12 @@ class SongViewHolder(val ui: SongBinding): RecyclerView.ViewHolder(ui.root) {
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.delete -> {
-                    showDeleteConfirmationDialog(view.context)
+                    //showDeleteConfirmationDialog(view.context)
                     Log.i("MUSIC", "supprimer la musique ")
                     true
                 }
                 R.id.edit -> {
-                    onEditClick(idChanson)
+                   // onEditClick(idChanson)
                     Log.i("MUSIC", "Éditer la chanson")
                     true
                 }
@@ -76,7 +76,7 @@ class SongViewHolder(val ui: SongBinding): RecyclerView.ViewHolder(ui.root) {
                 else -> false
             }
         }
-    }*/
+    }
     private fun showDeleteConfirmationDialog(context: Context) {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Confirmer la suppression")

@@ -26,10 +26,10 @@
             android:name=".Lecteur"
             android:exported="false" />
         <activity
-            android:name=".DashBoard"
+            android:name=".ui.DashBoard"
             android:exported="false" />
         <activity
-            android:name=".Acceuil"
+            android:name=".ui.Acceuil"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="false" />
     </application>
 
