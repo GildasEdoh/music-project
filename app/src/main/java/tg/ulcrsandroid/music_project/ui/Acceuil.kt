@@ -21,7 +21,6 @@ class Acceuil : AppCompatActivity() {
     private var progress = 0 // Progression initiale
     var TAG = "MUSIC"
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

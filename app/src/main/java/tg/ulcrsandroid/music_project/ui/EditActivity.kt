@@ -1,48 +1,67 @@
 package tg.ulcrsandroid.music_project.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import io.realm.Realm
 import org.bson.types.ObjectId
 import tg.ulcrsandroid.music_project.databinding.ActivityEditBinding
 import tg.ulcrsandroid.music_project.model.Chanson
+import tg.ulcrsandroid.music_project.service.RequettesRealm
 
 class EditActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityEditBinding
+    private lateinit var ui: ActivityEditBinding
     private var songId: ObjectId? = null
     private var realm: Realm = Realm.getDefaultInstance()
+    private val requettesRealm = RequettesRealm()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityEditBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        enableEdgeToEdge()
+        ui = ActivityEditBinding.inflate(layoutInflater)
+        setContentView(ui.root)
 
-        songId = intent.getStringExtra("idChanson")?.let { ObjectId(it) }
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(ui.root.id)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+        realm = Realm.getDefaultInstance()
+        val idstr = intent.getStringExtra("idChanson")
+        songId = if (idstr != null) ObjectId(idstr) else null
+        Log.i("EDIT", "Edit $$songId")
 
         // Charger les détails de la chanson
         loadSongDetails()
 
         // Enregistrer les modifications
-        binding.saveIcon.setOnClickListener {
+        ui.saveIcon.setOnClickListener {
+           // saveSongDetails()
+        }
+        ui.submit.setOnClickListener {
             saveSongDetails()
+            Log.i("EDIT ACT", "Submission")
         }
     }
 
     private fun loadSongDetails() {
-        val song = realm.where(Chanson::class.java).equalTo(Chanson.ID, songId).findFirst()
-        song?.let {
-            binding.songTitle.setText(it.titre)
-            binding.songArtist.setText(it.artistePrincipal?.nom)
-            //binding.songAlbum.setText(it.album)
-        }
+        val song = requettesRealm.getChansonById(songId, realm)
+        Log.i("DEBUG", "song: ${song?.titre}")
+            ui.songTitle.setText(song?.titre)
+            ui.songArtist.setText(song?.artistePrincipal?.nom)
+            //ui.songAlbum.setText(it.album)
     }
 
     private fun saveSongDetails() {
-        val title = binding.songTitle.text.toString()
-        val artist = binding.songArtist.text.toString()
-        val album = binding.songAlbum.text.toString()
+        val title = ui.songTitle.text.toString()
+        val artist = ui.songArtist.text.toString()
+        val album = ui.songAlbum.text.toString()
 
         if (title.isBlank() || artist.isBlank()) {
             Toast.makeText(this, "Les champs Titre et Artiste sont obligatoires", Toast.LENGTH_SHORT).show()

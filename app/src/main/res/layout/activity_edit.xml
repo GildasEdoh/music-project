@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -136,7 +137,17 @@
                 android:padding="12dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black" />
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:hint="Valider"
+                android:textSize="30dp"
+                android:textColor="@color/white"
+                android:background="@color/white"/>
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

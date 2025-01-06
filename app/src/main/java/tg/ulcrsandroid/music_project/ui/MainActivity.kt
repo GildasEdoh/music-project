@@ -20,14 +20,13 @@ import io.realm.RealmResults
 import org.bson.types.ObjectId
 import tg.ulcrsandroid.music_project.AudioPlayer
 import tg.ulcrsandroid.music_project.AudioPlayerService
-import tg.ulcrsandroid.music_project.Lecteur
-import tg.ulcrsandroid.music_project.RequettesRealm
-import tg.ulcrsandroid.music_project.SongAdapter
+import tg.ulcrsandroid.music_project.adapter.SongAdapter
 import tg.ulcrsandroid.music_project.databinding.ActivityMainBinding
 import tg.ulcrsandroid.music_project.model.Album
 import tg.ulcrsandroid.music_project.model.Artiste
 import tg.ulcrsandroid.music_project.model.Chanson
 import tg.ulcrsandroid.music_project.model.SongData
+import tg.ulcrsandroid.music_project.service.RequettesRealm
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +40,10 @@ class MainActivity : AppCompatActivity() {
     private var nbrClic = 0
     private var precChanson : Chanson? = null
     var TAG = "MUSIC"
+
+    companion object {
+        val EXTRA_ID = "idChanson"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ui = ActivityMainBinding.inflate(layoutInflater)
@@ -99,10 +102,10 @@ class MainActivity : AppCompatActivity() {
         requetteRealm.deleteSongById(this, idChanson)
     }
     private fun onEditClick(idChanson: ObjectId?) {
-        Log.i("MAIN", "Onedit Click")
+        Log.i("MAIN", "Onedit Click ${idChanson}")
         // Lancer l'activite main
         val intentEdit = Intent(this, EditActivity::class.java)
-        intentEdit.putExtra("idChanson", idChanson)
+        intentEdit.putExtra(EXTRA_ID, idChanson?.toHexString())
         startActivity(intentEdit)
     }
 
