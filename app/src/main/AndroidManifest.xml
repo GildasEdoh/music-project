@@ -28,6 +28,8 @@
         <activity
             android:name=".ui.DashBoard"
             android:exported="false" />
+        <activity android:name=".ui.EditActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.Acceuil"
             android:exported="true">

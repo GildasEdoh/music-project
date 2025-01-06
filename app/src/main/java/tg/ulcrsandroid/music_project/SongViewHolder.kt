@@ -16,7 +16,16 @@ class SongViewHolder(val ui: SongBinding): RecyclerView.ViewHolder(ui.root) {
     var title: String? = null;
     lateinit var onEditClick: (ObjectId?) -> Unit
     lateinit var onItemClick: (ObjectId?) -> Unit
-    lateinit var onDeleteClick: (Int) -> Unit // Callback pour la suppression
+    lateinit var onDeleteClick: (ObjectId?) -> Unit // Callback pour la suppression
+
+    companion object {
+        val MENU_DELETE = 1
+        val MENU_EDIT = 2
+        val MENU_ADD_TO_FAV = 3
+        val MENU_ADD_TO_PLAYLIST = 4
+        val MENU_DETAILS = 5
+        val MENU_PLAY_NEXT = 6
+    }
     init {
         ui.root.setOnClickListener { onClick() }
         ui.menuIcon.setOnClickListener { view -> showPopupMenu(view) }
@@ -56,12 +65,12 @@ class SongViewHolder(val ui: SongBinding): RecyclerView.ViewHolder(ui.root) {
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.delete -> {
-                    //showDeleteConfirmationDialog(view.context)
+                    showDeleteConfirmationDialog(view.context)
                     Log.i("MUSIC", "supprimer la musique ")
                     true
                 }
                 R.id.edit -> {
-                   // onEditClick(idChanson)
+                    onEdit()
                     Log.i("MUSIC", "Éditer la chanson")
                     true
                 }
@@ -77,17 +86,22 @@ class SongViewHolder(val ui: SongBinding): RecyclerView.ViewHolder(ui.root) {
             }
         }
     }
+
     private fun showDeleteConfirmationDialog(context: Context) {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Confirmer la suppression")
         builder.setMessage("Supprimer cette chanson ?")
         builder.setPositiveButton("Oui") { dialog, _ ->
-            onDeleteClick(adapterPosition) // Appel du callback pour supprimer
+            onDeleteClick(idChanson) // Appel du callback pour supprimer
             dialog.dismiss()
         }
         builder.setNegativeButton("Annuler") { dialog, _ ->
             dialog.dismiss()
         }
         builder.show()
+    }
+    private fun onEdit() {
+        Log.i("MYSIC", "Edition d'une chanson $idChanson")
+        onEditClick(idChanson)
     }
 }

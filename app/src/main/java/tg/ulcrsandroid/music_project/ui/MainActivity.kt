@@ -73,6 +73,8 @@ class MainActivity : AppCompatActivity() {
 
         // Ecouteur pour les clics sur les elements
         songAdapter.onItemClick = this::onItemClick
+        songAdapter.onDeletClick = this::onDeleteClick
+        songAdapter.onEditClick = this::onEditClick
         // realm.close()
     }
 
@@ -90,6 +92,18 @@ class MainActivity : AppCompatActivity() {
 
             Log.i("ACTION", "Lecture de la chanson ${chansonEnCous?.url}")
         }
+    }
+    private fun onDeleteClick(idChanson: ObjectId?) {
+        // Suppression Chanson
+        Log.i("MAIN", "Suppression Chanson: $idChanson")
+        requetteRealm.deleteSongById(this, idChanson)
+    }
+    private fun onEditClick(idChanson: ObjectId?) {
+        Log.i("MAIN", "Onedit Click")
+        // Lancer l'activite main
+        val intentEdit = Intent(this, EditActivity::class.java)
+        intentEdit.putExtra("idChanson", idChanson)
+        startActivity(intentEdit)
     }
 
     // Fonction pour lancer le lecteur

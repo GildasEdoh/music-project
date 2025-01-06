@@ -19,7 +19,7 @@ class EditActivity : AppCompatActivity() {
         binding = ActivityEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        songId = intent.getStringExtra("SONG_ID")?.let { ObjectId(it) }
+        songId = intent.getStringExtra("idChanson")?.let { ObjectId(it) }
 
         // Charger les détails de la chanson
         loadSongDetails()
@@ -31,7 +31,7 @@ class EditActivity : AppCompatActivity() {
     }
 
     private fun loadSongDetails() {
-        val song = realm.where(Chanson::class.java).equalTo("id", songId).findFirst()
+        val song = realm.where(Chanson::class.java).equalTo(Chanson.ID, songId).findFirst()
         song?.let {
             binding.songTitle.setText(it.titre)
             binding.songArtist.setText(it.artistePrincipal?.nom)

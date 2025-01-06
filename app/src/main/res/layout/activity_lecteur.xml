@@ -40,9 +40,9 @@
         android:layout_width="224dp"
         android:layout_height="198dp"
         android:layout_marginTop="148dp"
-        android:background="#C8473A7E"
+
         android:scaleType="centerInside"
-        android:src="@drawable/melodie"
+        android:src="@drawable/mysic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
