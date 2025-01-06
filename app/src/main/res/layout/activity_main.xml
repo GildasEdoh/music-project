@@ -13,15 +13,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
-        android:background="#1E1C5C"
-        android:elevation="4dp"
-        android:layout_marginTop="50dp">
+        android:background="#2B1D50"
+        android:elevation="4dp">
 
         <!-- Bouton de retour -->
         <ImageView
             android:id="@+id/back_icon"
             android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:src="@drawable/ic_action_previous_item"
             android:contentDescription="Back"
             android:layout_marginEnd="8dp" />
@@ -31,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:background="@drawable/background_with_ripple"
+            android:background="#C8473A7E"
             android:orientation="horizontal"
             android:padding="8dp"
             android:gravity="center_vertical">
@@ -39,7 +38,7 @@
             <EditText
                 android:id="@+id/search_bar"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:hint="Search..."
                 android:background="@android:color/transparent"
@@ -58,21 +57,22 @@
     </LinearLayout>
 
     <!-- RecyclerView pour la liste -->
+
+    <!-- Barre de navigation en bas -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:background="#1E1C5C"
+        android:layout_height="510dp"
+        android:background="#2B1D50"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context=".ui.MainActivity" />
 
-    <!-- Barre de navigation en bas -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="98dp"
-        android:background="#1E1C5C"
+        android:layout_height="150dp"
+        android:background="#C8473A7E"
         android:orientation="horizontal"
-        android:padding="8dp"
+        android:padding="10dp"
         android:weightSum="5">
 
         <ImageView

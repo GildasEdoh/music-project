@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#240E45"
+    android:background="#2B1D50"
     tools:context=".ui.DashBoard">
 
     <!-- Barre contenant les paramètres, le titre et la recherche -->
@@ -61,44 +61,58 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Infos musique -->
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/player_controls"
+
+    <ImageView
+        android:id="@+id/logo_image"
         android:layout_width="0dp"
-        android:layout_height="75dp"
-        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        android:layout_height="600dp"
+        android:layout_marginTop="4dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/notes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.949">
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
 
-        <!-- Barre de progression -->
-        <SeekBar
-            android:id="@+id/progress_bar"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:progress="50"
-            android:progressTint="#1F6B87"
-            android:secondaryProgressTint="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/play_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/music_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="264dp"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <!-- Bouton Play -->
         <ImageView
             android:id="@+id/play_button"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="16dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="Play"
             android:src="@drawable/ic_play_foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/progress_bar"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/music_name"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="72dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Titre"
+            android:textColor="#FEFFFF"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <GridLayout
@@ -125,7 +139,7 @@
             android:layout_columnWeight="1"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="#1F877E"
+            android:background="#C8473A7E"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center">
@@ -150,6 +164,7 @@
                 android:textColor="@android:color/white"
                 android:layout_marginLeft="8dp"
                 android:textSize="20dp"/>
+
         </LinearLayout>
 
         <!-- Favoris -->
@@ -163,7 +178,7 @@
             android:layout_columnWeight="1"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
-            android:background="#1F877E"
+            android:background="#C8473A7E"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center">
@@ -193,7 +208,7 @@
             android:layout_columnWeight="1"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:background="#1F877E"
+            android:background="#C8473A7E"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center">
@@ -222,7 +237,7 @@
             android:layout_columnWeight="1"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="#1F877E"
+            android:background="#C8473A7E"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center">

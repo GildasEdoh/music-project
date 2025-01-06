@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1E1C5C"
+    android:background="#2B1D50"
     tools:context=".Lecteur">
 
     <ImageView
@@ -40,7 +40,7 @@
         android:layout_width="224dp"
         android:layout_height="198dp"
         android:layout_marginTop="148dp"
-        android:background="#1F877E"
+        android:background="#C8473A7E"
         android:scaleType="centerInside"
         android:src="@drawable/melodie"
         app:layout_constraintEnd_toEndOf="parent"

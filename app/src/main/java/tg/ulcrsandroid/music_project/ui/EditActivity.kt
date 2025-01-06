@@ -25,7 +25,7 @@ class EditActivity : AppCompatActivity() {
         loadSongDetails()
 
         // Enregistrer les modifications
-        binding.saveButton.setOnClickListener {
+        binding.saveIcon.setOnClickListener {
             saveSongDetails()
         }
     }
