@@ -1,11 +1,14 @@
 package tg.ulcrsandroid.music_project.ui
 import android.Manifest
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.os.Bundle
 import android.os.Handler
+import android.os.IBinder
 import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
@@ -18,27 +21,25 @@ import androidx.core.view.WindowInsetsCompat
 import io.realm.Realm
 import io.realm.RealmResults
 import org.bson.types.ObjectId
-import tg.ulcrsandroid.music_project.AudioPlayer
 import tg.ulcrsandroid.music_project.AudioPlayerService
 import tg.ulcrsandroid.music_project.adapter.SongAdapter
 import tg.ulcrsandroid.music_project.databinding.ActivityMainBinding
-import tg.ulcrsandroid.music_project.model.Album
-import tg.ulcrsandroid.music_project.model.Artiste
 import tg.ulcrsandroid.music_project.model.Chanson
 import tg.ulcrsandroid.music_project.model.SongData
 import tg.ulcrsandroid.music_project.service.RequettesRealm
-
 
 class MainActivity : AppCompatActivity() {
     private val REQUEST_PERMISSION_CODE = 1001
     private lateinit var realm : Realm
     private lateinit var songAdapter: SongAdapter
     private lateinit var ui : ActivityMainBinding
-    private lateinit var audioPlayer : AudioPlayer
-    private var requetteRealm = RequettesRealm()
+    // private lateinit var audioPlayer : AudioPlayer
+    private lateinit var requetteRealm : RequettesRealm
     private var chansonEnCous: Chanson? = null
-    private var nbrClic = 0
     private var precChanson : Chanson? = null
+    private var audioService: AudioPlayerService? = null
+    private var isServiceBound = false
+
     var TAG = "MUSIC"
 
     companion object {
@@ -52,25 +53,28 @@ class MainActivity : AppCompatActivity() {
         setTitle("MYSIC")
 
         this.realm = Realm.getDefaultInstance()
+        requetteRealm = RequettesRealm(realm)
         enableEdgeToEdge()
-
        // setContentView(R.layout.activity_main)
         Log.i("MUSIC", "COURS MMMMMMMMMMMMMM")
         checkAndRequestPermissions(this)
-        audioPlayer = AudioPlayer(this) // Initialisation d'audioPlayer
 
-        //setContentView(R.layout.activity_main)
+        // Connection au service de lecture
+        val intent = Intent(this, AudioPlayerService::class.java)
+        bindService(intent, serviceConnection, BIND_AUTO_CREATE)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(ui.recycler.id)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val songs = realm.where(Chanson::class.java).findAllAsync()
+        val songs = requetteRealm.getAllRealmSongs()
         val ite = songs.count()
         Log.i("DEBUG Main", "artiste: $ite")
 
-        val songAdapter = SongAdapter(songs as RealmResults<Chanson>)
+        // Init the adapter
+        songAdapter = SongAdapter(songs as RealmResults<Chanson>)
         ui.recycler.adapter = songAdapter
         ui.recycler.setHasFixedSize( true)
 
@@ -78,29 +82,30 @@ class MainActivity : AppCompatActivity() {
         songAdapter.onItemClick = this::onItemClick
         songAdapter.onDeletClick = this::onDeleteClick
         songAdapter.onEditClick = this::onEditClick
-        // realm.close()
-    }
 
+        var search = ui.searchBar
+    }
     // Lecture Chanson
     private fun onItemClick(idChanson: ObjectId?) {
-        this.chansonEnCous = requetteRealm.getChansonById(idChanson, realm)
+        this.chansonEnCous = requetteRealm.getChansonById(idChanson)
         Log.i("ACTION", "Action sur la chanson ${chansonEnCous?.url}")
         if (this.chansonEnCous != null) {
-                // Lancer lecteur
-            if (precChanson == chansonEnCous) {
-
-            }
             precChanson = this.chansonEnCous
             startLecteur(chansonEnCous)
-
             Log.i("ACTION", "Lecture de la chanson ${chansonEnCous?.url}")
         }
     }
     private fun onDeleteClick(idChanson: ObjectId?) {
         // Suppression Chanson
         Log.i("MAIN", "Suppression Chanson: $idChanson")
+        val chanson = requetteRealm.getChansonById(idChanson)
+        val check = audioService?.deleteFile(chanson?.url!!)
+        Log.i("MAIN", "check: $check")
+        Log.i("MAIN", "Suppression dans le stockage reussie: $idChanson")
         requetteRealm.deleteSongById(this, idChanson)
     }
+
+    // Lancer edit activity
     private fun onEditClick(idChanson: ObjectId?) {
         Log.i("MAIN", "Onedit Click ${idChanson}")
         // Lancer l'activite main
@@ -119,13 +124,12 @@ class MainActivity : AppCompatActivity() {
         startService(intentService)
         // Lancer l'activite Lecteur
         val intentLecteur = Intent(this, Lecteur::class.java)
-        intentLecteur.putExtra("idChanson", chanson?.id)
+        intentLecteur.putExtra("idChanson", chanson?.id?.toHexString())
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             startActivity(intentLecteur)
         }, 1000)
     }
-
     //
     private fun checkAndRequestPermissions(context: Context) {
         val permission = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
@@ -137,7 +141,6 @@ class MainActivity : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED) {
            // val songs = scanMusicFiles(context)
             Log.i("PERMISSION", "Permissions accordées")
-            scanMusicFiles(context)
         } else {
             // Demander la permission
             ActivityCompat.requestPermissions(
@@ -165,94 +168,38 @@ class MainActivity : AppCompatActivity() {
         cursor?.use {
             val songsData = getSongs(it)
             val count = songsData.size
-            val countRealm = countRealmObject(realm).toInt()
+            val countRealm = countRealmChanson(realm).toInt()
 
-            Log.i("MUSIC", "countCursor: $count countRealm: $countRealm")
+            requetteRealm.initListe()
+            requetteRealm.insertRealmObject(songsData)
 
-            if (countRealm == 0) { // Cas ou aucun objet dans realm
-                insertRealmObject(realm, songsData)
-                Log.i("MUSIC", "Cas ou aucun objet dans realm")
-
-            } else if(count != countRealm) { // Cas nouveau fichier ajouté
-                initListe(realm)
-                insertRealmObject(realm, songsData)
-                Log.i("MUSIC", "Cas de mis a jour")
-            } else if (countRealm == 0){
-                Log.i("MUSIC", "Rien dans realm")
-            } else {
-                Log.i("MUSIC", "Tout est a jour")
-            }
         }
         return songs
     }
 
-fun getSongs(cursor: Cursor): List<SongData> {
-    var songs = mutableListOf<SongData>()
-    val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)
-    val titleColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE)
-    val artistColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST)
-    val albumColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM)
-    val dataColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)
-    val durationColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION)
-    while (cursor.moveToNext()) {
-        val id = cursor.getLong(idColumn)
-        val titre = cursor.getString(titleColumn)
-        val artisteNom = cursor.getString(artistColumn)
-        val albumNom = cursor.getString(albumColumn)
-        val url = cursor.getString(dataColumn)
-        val duree = cursor.getLong(durationColumn)
+    fun getSongs(cursor: Cursor): List<SongData> {
+        var songs = mutableListOf<SongData>()
+        val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)
+        val titleColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE)
+        val artistColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST)
+        val albumColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM)
+        val dataColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)
+        val durationColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION)
+        while (cursor.moveToNext()) {
+            val id = cursor.getLong(idColumn)
+            val titre = cursor.getString(titleColumn)
+            val artisteNom = cursor.getString(artistColumn)
+            val albumNom = cursor.getString(albumColumn)
+            val url = cursor.getString(dataColumn)
+            val duree = cursor.getLong(durationColumn)
 
-        songs.add(SongData(id, titre, artisteNom, albumNom, url, duree))
-        //Log.i("MUSIC", "artiste: ${artisteNom}")
-    }
-    return songs
-}
-    fun insertRealmObject(realm: Realm, songs : List<SongData>): Realm {
-        realm.executeTransactionAsync ({ transac ->
-            for (song in songs) {
-
-                // Recuperer l'artiste
-                val art = transac.where(Artiste::class.java)
-                    .equalTo(Artiste.NOM, song.artiste)
-                    .findFirst() ?: transac.createObject(Artiste::class.java, ObjectId()).apply {
-                        this.nom = song.artiste
-                }
-
-                // Recuperer ou creer l'album
-                var alb = transac.where(Album::class.java)
-                    .equalTo(Album.NOM, song.album)
-                    .findFirst() ?: transac.createObject(Album::class.java, ObjectId()).apply {
-                        this.nom = song.album
-                }
-
-                val id = ObjectId()
-                // Creer la chanson
-                var chanson = transac.createObject(Chanson::class.java, id).apply {
-                    this.titre = song.titre
-                    this.duree = song.duree
-                    this.artistePrincipal = art/* Artiste().apply {
-                        this.nom = song.artiste
-                    }*/
-                    this.album = alb/*Album().apply {
-                        this.nom = song.album
-                    }*/
-                    this.url = song.url
-                }
-                Log.i("MUSIC", "titre deb: ${chanson.titre}")
-
-                art.chansons.add(chanson)
-                alb.chansons.add(chanson)
-            }
-        }, {
-            Log.i("MUSIC", "Transaction reussi")
-
-        }, { error ->
-            Log.e("Realm", "Transaction échouée : ${error.localizedMessage}")
-        })
-        return realm
+            songs.add(SongData(id, titre, artisteNom, albumNom, url, duree))
+            //Log.i("MUSIC", "artiste: ${artisteNom}")
+        }
+        return songs
     }
 
-    fun countRealmObject(realm: Realm) : Long {
+    fun countRealmChanson(realm: Realm) : Long {
         return realm.where(Chanson::class.java).count()
     }
     //
@@ -270,15 +217,23 @@ fun getSongs(cursor: Cursor): List<SongData> {
             }
         }
     }
-    fun initListe(realm: Realm) {
-        realm.executeTransactionAsync { r ->
-            // Supprime tous les X-Men existants dans Realm
-            Log.i("Mise a jour .....", "maj")
-            r.where(Chanson::class.java).findAll().deleteAllFromRealm()
+    private val serviceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            val binder = service as AudioPlayerService.AudioPlayerBinder
+            audioService = binder.getService()
+            isServiceBound = true
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            audioService = null
+            isServiceBound = false
         }
     }
     override fun onDestroy() {
         super.onDestroy()
-            //audioPlayer.stop() // Libérer les ressources
+        if (isServiceBound) {
+            unbindService(serviceConnection)
+            isServiceBound = false
+        }
     }
 }

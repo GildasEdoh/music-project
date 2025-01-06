@@ -14,10 +14,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import io.realm.Realm
+import org.bson.types.ObjectId
 import tg.ulcrsandroid.music_project.AudioPlayerService
 import tg.ulcrsandroid.music_project.R
 import tg.ulcrsandroid.music_project.databinding.ActivityLecteurBinding
-import tg.ulcrsandroid.music_project.model.Chanson
 import tg.ulcrsandroid.music_project.service.RequettesRealm
 
 class Lecteur : AppCompatActivity() {
@@ -43,11 +43,14 @@ class Lecteur : AppCompatActivity() {
             startService(intent)  // Démarre le service
             bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
-        val chansonId = intent.getStringExtra("idChanson")
+        val idstr = intent.getStringExtra("idChanson")
+        val songId = if (idstr != null) ObjectId(idstr) else null
+
         var realm = Realm.getDefaultInstance()
-        val chansonRealm = realm.where(Chanson::class.java).equalTo("id", chansonId).findFirst()
+        requettesRealm = RequettesRealm(realm)
+        val chansonRealm = requettesRealm.getChansonById(songId)
         chansonRealm?.let {
-            println("ID: ${it.id}, Titre: ${it.titre}, Artiste: ${it.artistePrincipal}")
+            // println("ID: ${it.id}, Titre: ${it.titre}, Artiste: ${it.artistePrincipal}")
         }
         ui.songTitle.text = chansonRealm?.titre
 

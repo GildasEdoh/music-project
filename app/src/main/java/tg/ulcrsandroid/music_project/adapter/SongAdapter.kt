@@ -43,4 +43,10 @@ class SongAdapter(val songs: RealmResults<Chanson>) : RecyclerView.Adapter<SongV
         holder.onEditClick = onEditClick
         holder.onDeleteClick = onDeletClick
     }
+    fun filterList(filteredList: List<Chanson>) {
+        songs.clear()
+        songs.addAll(filteredList)
+        //notifyDataSetChanged()
+    }
+
 }

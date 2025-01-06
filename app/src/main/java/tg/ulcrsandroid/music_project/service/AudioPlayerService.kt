@@ -3,9 +3,11 @@ package tg.ulcrsandroid.music_project
 import android.app.Service
 import android.content.Intent
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Binder
 import android.os.IBinder
 import android.util.Log
+import java.io.File
 
 class AudioPlayerService : Service() {
     private val binder = AudioPlayerBinder()
@@ -65,6 +67,29 @@ class AudioPlayerService : Service() {
         }
         return START_STICKY  // Indique que le service doit être relancé si le système le tue
     }
+    override fun deleteFile(url: String): Boolean {
+        Log.i("AUDIO_SERVICE", "Fonction delete: ")
+        return try {
+            Log.i("AUDIO_SERVICE", "bloc try: ")
+            // Si l'URL correspond à un chemin de fichier local
+            val file = File(url)
+            if (file.exists()) {
+
+                Log.i("AUDIO_SERVICE", "bloc if: url $url ")
+                file.delete()
+            } else {
+                // Si l'URL est un URI, utilisez le ContentResolver
+                Log.i("AUDIO_SERVICE", "bloc else: ")
+                val uri = Uri.parse(url)
+                val resolver = contentResolver
+                resolver.delete(uri, null, null) > 0
+            }
+        } catch (e: Exception) {
+            Log.i("AUDIO_SERVICE", "Erreur lors de la suppression du fichier: ${e.message}")
+            false
+        }
+    }
+
 
     override fun onCreate() {
         super.onCreate()

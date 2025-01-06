@@ -10,15 +10,14 @@ import androidx.core.view.WindowInsetsCompat
 import io.realm.Realm
 import org.bson.types.ObjectId
 import tg.ulcrsandroid.music_project.databinding.ActivityEditBinding
-import tg.ulcrsandroid.music_project.model.Chanson
 import tg.ulcrsandroid.music_project.service.RequettesRealm
 
 class EditActivity : AppCompatActivity() {
 
     private lateinit var ui: ActivityEditBinding
     private var songId: ObjectId? = null
-    private var realm: Realm = Realm.getDefaultInstance()
-    private val requettesRealm = RequettesRealm()
+    private lateinit var realm: Realm
+    private lateinit var requettesRealm : RequettesRealm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +32,8 @@ class EditActivity : AppCompatActivity() {
             insets
         }
         realm = Realm.getDefaultInstance()
+        requettesRealm = RequettesRealm(realm)
+
         val idstr = intent.getStringExtra("idChanson")
         songId = if (idstr != null) ObjectId(idstr) else null
         Log.i("EDIT", "Edit $$songId")
@@ -42,23 +43,23 @@ class EditActivity : AppCompatActivity() {
 
         // Enregistrer les modifications
         ui.saveIcon.setOnClickListener {
-           // saveSongDetails()
+           // saveModifs()
         }
         ui.submit.setOnClickListener {
-            saveSongDetails()
+            saveModifs()
             Log.i("EDIT ACT", "Submission")
         }
     }
 
     private fun loadSongDetails() {
-        val song = requettesRealm.getChansonById(songId, realm)
+        val song = requettesRealm.getChansonById(songId)
         Log.i("DEBUG", "song: ${song?.titre}")
             ui.songTitle.setText(song?.titre)
             ui.songArtist.setText(song?.artistePrincipal?.nom)
             //ui.songAlbum.setText(it.album)
     }
 
-    private fun saveSongDetails() {
+    private fun saveModifs() {
         val title = ui.songTitle.text.toString()
         val artist = ui.songArtist.text.toString()
         val album = ui.songAlbum.text.toString()
@@ -68,15 +69,8 @@ class EditActivity : AppCompatActivity() {
             return
         }
 
-        realm.executeTransaction {
-            val song = it.where(Chanson::class.java).equalTo("id", songId).findFirst()
-            song?.let {
-                it.titre = title
-                it.artistePrincipal?.nom = artist
-               //it.album = album
-            }
-        }
-
+        // Save the modifications
+        requettesRealm.editChansonById(title, artist, songId)
         Toast.makeText(this, "Chanson sauvegardée avec succès", Toast.LENGTH_SHORT).show()
         finish()
     }
