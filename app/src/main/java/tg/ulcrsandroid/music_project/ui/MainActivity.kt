@@ -82,9 +82,50 @@ class MainActivity : AppCompatActivity() {
         songAdapter.onItemClick = this::onItemClick
         songAdapter.onDeletClick = this::onDeleteClick
         songAdapter.onEditClick = this::onEditClick
+        songAdapter.onAddToFavorites = this::addToFavorite
 
-        var search = ui.searchBar
+       ui.homeIcon.setOnClickListener {
+           switchToDashbord()
+       }
+        ui.musicIcon.setOnClickListener{
+            swithcToPlaylist()
+        }
+        ui.backIcon.setOnClickListener {
+            finish()
+            realm.close()
+        }
+        ui.favoriteIcon.setOnClickListener {
+            val favSong = requetteRealm.getFavSong()
+            if (favSong != null) {
+                Log.i("MAIN", "updating favSong")
+                songAdapter.updateSongs(favSong)
+            } else {
+                Log.i("MAIN", "Favsong is null")
+            }
+        }
+
     }
+    private fun addToFavorite(idChanson: ObjectId?) {
+        Log.i("MAIN", "Add to favorites")
+        requetteRealm.addSongToFavorite(idChanson)
+    }
+    private fun swithcToPlaylist() {
+        Log.i(TAG, "Lancement de Playlist ")
+        // Lancer l'activite main
+        val intentPlaylist = Intent(this, PlaylistActivity::class.java)
+        startActivity(intentPlaylist)
+        finish()
+        Log.i(TAG, "Fin de l'activite main ")
+    }
+    private fun switchToDashbord() {
+        Log.i(TAG, "Lancement du dashboard ")
+        // Lancer l'activite main
+        val intentDashBoard = Intent(this, DashBoard::class.java)
+        startActivity(intentDashBoard)
+        finish()
+        Log.i(TAG, "Fin de l'activite main ")
+    }
+
     // Lecture Chanson
     private fun onItemClick(idChanson: ObjectId?) {
         this.chansonEnCous = requetteRealm.getChansonById(idChanson)
@@ -141,6 +182,7 @@ class MainActivity : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED) {
            // val songs = scanMusicFiles(context)
             Log.i("PERMISSION", "Permissions accordées")
+            scanMusicFiles(this)
         } else {
             // Demander la permission
             ActivityCompat.requestPermissions(
@@ -169,10 +211,8 @@ class MainActivity : AppCompatActivity() {
             val songsData = getSongs(it)
             val count = songsData.size
             val countRealm = countRealmChanson(realm).toInt()
-
             requetteRealm.initListe()
             requetteRealm.insertRealmObject(songsData)
-
         }
         return songs
     }

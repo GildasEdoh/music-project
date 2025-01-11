@@ -53,6 +53,7 @@ class DashBoard : AppCompatActivity() {
         var playlistLayout = ui.playlist
         playlistLayout.setOnClickListener{
             Log.i("DEBUG", "Clic sur playlist")
+            startPlaylist()
         }
         realm = Realm.getDefaultInstance()
         requettesRealm = RequettesRealm(realm)
@@ -84,7 +85,11 @@ class DashBoard : AppCompatActivity() {
 
     }
     fun startPlaylist() {
-
+        Log.i(TAG, "Lancement de playlist ")
+        // Lancer l'activite main
+        val intentPlaylist = Intent(this, PlaylistActivity::class.java)
+        startActivity(intentPlaylist)
+        Log.i(TAG, "Fin de l'activite main ")
     }
     fun startRecents() {
 

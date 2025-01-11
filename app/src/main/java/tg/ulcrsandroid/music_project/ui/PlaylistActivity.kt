@@ -18,7 +18,7 @@ class PlaylistActivity : AppCompatActivity() {
         enableEdgeToEdge()
         ui = ActivityPlaylistBinding.inflate(layoutInflater)
         setContentView(ui.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(ui.root.id)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(ui.recycler.id)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets

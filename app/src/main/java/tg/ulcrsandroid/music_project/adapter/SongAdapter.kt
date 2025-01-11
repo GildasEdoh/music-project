@@ -9,10 +9,11 @@ import tg.ulcrsandroid.music_project.databinding.SongBinding
 import tg.ulcrsandroid.music_project.model.Chanson
 import tg.ulcrsandroid.music_project.view_holder.SongViewHolder
 
-class SongAdapter(val songs: RealmResults<Chanson>) : RecyclerView.Adapter<SongViewHolder>(){
+class SongAdapter(var songs: RealmResults<Chanson>) : RecyclerView.Adapter<SongViewHolder>(){
     lateinit var onItemClick: (ObjectId?) -> Unit
     lateinit var onEditClick: (ObjectId?) -> Unit
     lateinit var onDeletClick: (ObjectId?) -> Unit
+    lateinit var onAddToFavorites: (ObjectId?) -> Unit
     init {
         songs.addChangeListener { _, changeSet ->
             for (change in changeSet.deletionRanges) {
@@ -42,10 +43,15 @@ class SongAdapter(val songs: RealmResults<Chanson>) : RecyclerView.Adapter<SongV
         holder.onItemClick = onItemClick
         holder.onEditClick = onEditClick
         holder.onDeleteClick = onDeletClick
+        holder.addToFavorites = onAddToFavorites
     }
     fun filterList(filteredList: List<Chanson>) {
         songs.clear()
         songs.addAll(filteredList)
+        //notifyDataSetChanged()
+    }
+    fun updateSongs(favSongs: RealmResults<Chanson>) {
+        songs = favSongs
         //notifyDataSetChanged()
     }
 

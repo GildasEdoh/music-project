@@ -17,6 +17,7 @@ open class Chanson () : RealmObject() {
     var isPlaying: Boolean = false
     var nbrOfplay: Int = 0
     var recentlyPlayed = false
+    var isFavorite = false
 
     companion object {
         val ID = "id"
@@ -24,5 +25,6 @@ open class Chanson () : RealmObject() {
         val DUREE = "duree"
         val ARTISTEPRINCIPAL = "artistePrincipal"
         val ALBUM = "album"
+        val ISFAV = "isFavorite"
     }
 }

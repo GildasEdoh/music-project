@@ -37,8 +37,8 @@
 
             <EditText
                 android:id="@+id/search_bar"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="Search..."
@@ -48,7 +48,7 @@
             <ImageView
                 android:id="@+id/search_icon"
                 android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:contentDescription="Search"
                 android:src="@drawable/ic_recherche_foreground" />
         </LinearLayout>
@@ -58,7 +58,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="532dp"
+        android:layout_height="511dp"
         android:background="#2B1D50"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context=".ui.MainActivity" />
@@ -93,7 +93,6 @@
             android:layout_height="80dp"
             android:layout_weight="1"
             android:padding="10dp"
-
             android:src="@drawable/dossier" />
 
         <ImageView

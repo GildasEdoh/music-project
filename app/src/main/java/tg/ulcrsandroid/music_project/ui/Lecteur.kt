@@ -72,6 +72,9 @@ class Lecteur : AppCompatActivity() {
                 Log.e("MUSIC", "Service non disponible")
             }
         }
+        ui.backIcon.setOnClickListener {
+            finishActivity()
+        }
     }
 
     private val connection = object : ServiceConnection {
@@ -129,6 +132,9 @@ class Lecteur : AppCompatActivity() {
             unbindService(connection)
             isBound = false
         }
+    }
+    private fun finishActivity () {
+        finish()
     }
 
 }

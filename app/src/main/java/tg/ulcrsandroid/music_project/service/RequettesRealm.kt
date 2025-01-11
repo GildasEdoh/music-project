@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import io.realm.Realm
+import io.realm.RealmResults
 import org.bson.types.ObjectId
 import tg.ulcrsandroid.music_project.model.Album
 import tg.ulcrsandroid.music_project.model.Artiste
@@ -94,7 +95,6 @@ class RequettesRealm (realm: Realm){
     fun insertRealmObject(songs : List<SongData>): Realm {
         realm.executeTransactionAsync ({ transac ->
             for (song in songs) {
-
                 // Recuperer l'artiste
                 val art = transac.where(Artiste::class.java)
                     .equalTo(Artiste.NOM, song.artiste)
@@ -135,7 +135,28 @@ class RequettesRealm (realm: Realm){
         })
         return realm
     }
-    fun  getAllRealmSongs() : List<Chanson>{
+     fun addSongToFavorite(idChanson: ObjectId?) {
+         Log.i("Requettes Class", "Fonction addSongToFavorite")
+        realm.executeTransaction {
+            val chanson = it.where(Chanson::class.java).equalTo(Chanson.ID, idChanson)
+                .findFirst()
+            chanson?.isFavorite = true
+        }
+        val song = getChansonById(idChanson)
+         Log.i("Requettes Realm", "chansonFav: ${song?.isFavorite}")
+    }
+    fun  getAllRealmSongs() : List<Chanson> {
         return realm.where(Chanson::class.java).findAllAsync()
+    }
+    fun getFavSong() : RealmResults<Chanson>? {
+        realm = Realm.getDefaultInstance()
+        var favSongs: RealmResults<Chanson>? = null
+        realm.executeTransactionAsync {
+            favSongs = it.where(Chanson::class.java)
+                .equalTo(Chanson.ISFAV, true)
+                .findAll()
+            Log.i("Requette", "fsongs ${favSongs}")
+        }
+        return favSongs
     }
 }
