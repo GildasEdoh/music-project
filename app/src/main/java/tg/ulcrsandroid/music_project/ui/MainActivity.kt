@@ -162,6 +162,7 @@ class MainActivity : AppCompatActivity() {
 
     // Lecture Chanson
     private fun onItemClick(idChanson: ObjectId?) {
+        Log.i("MAIN", "idChanson ${idChanson}")
         this.chansonEnCous = requetteRealm.getChansonById(idChanson)
         Log.i("ACTION", "Action sur la chanson ${chansonEnCous?.url}")
         if (this.chansonEnCous != null) {

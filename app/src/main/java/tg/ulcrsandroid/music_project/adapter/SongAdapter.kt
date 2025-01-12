@@ -1,5 +1,6 @@
 package tg.ulcrsandroid.music_project.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ class SongAdapter(var songs: RealmResults<Chanson>) : RecyclerView.Adapter<SongV
     lateinit var onDeletClick: (ObjectId?) -> Unit
     lateinit var onAddToFavorites: (ObjectId?) -> Unit
     private var filteredSongs: List<Chanson> = songs
+    private var currentSongIndex = 0
     init {
         songs.addChangeListener { _, changeSet ->
             for (change in changeSet.deletionRanges) {
@@ -38,6 +40,7 @@ class SongAdapter(var songs: RealmResults<Chanson>) : RecyclerView.Adapter<SongV
     }
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
+        Log.i("ViewHolder", "position $position")
         holder.song = filteredSongs[position]
         holder.onItemClick = onItemClick
         holder.onEditClick = onEditClick

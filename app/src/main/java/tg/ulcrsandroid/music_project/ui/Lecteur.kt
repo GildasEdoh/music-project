@@ -75,6 +75,9 @@ class Lecteur : AppCompatActivity() {
         ui.backIcon.setOnClickListener {
             finishActivity()
         }
+        ui.nextIcon.setOnClickListener {
+
+        }
     }
 
     private val connection = object : ServiceConnection {
