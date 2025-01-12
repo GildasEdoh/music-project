@@ -6,15 +6,17 @@ import androidx.recyclerview.widget.RecyclerView
 import io.realm.RealmResults
 import org.bson.types.ObjectId
 import tg.ulcrsandroid.music_project.databinding.SongBinding
-import tg.ulcrsandroid.music_project.model.Chanson
-import tg.ulcrsandroid.music_project.view_holder.SongViewHolder
+import tg.ulcrsandroid.music_project.model.Playlist
+import tg.ulcrsandroid.music_project.view_holder.PlaylistViewHolder
 
-class PlaylistAdapter(val songs: RealmResults<Chanson>) : RecyclerView.Adapter<SongViewHolder>(){
+class PlaylistAdapter(val playlists: RealmResults<Playlist>) : RecyclerView.Adapter<PlaylistViewHolder>(){
     lateinit var onItemClick: (ObjectId?) -> Unit
     lateinit var onEditClick: (ObjectId?) -> Unit
     lateinit var onDeletClick: (ObjectId?) -> Unit
+
+
     init {
-        songs.addChangeListener { _, changeSet ->
+        playlists.addChangeListener { _, changeSet ->
             for (change in changeSet.deletionRanges) {
                 notifyItemRangeRemoved(change.startIndex, change.length)
             }
@@ -26,17 +28,17 @@ class PlaylistAdapter(val songs: RealmResults<Chanson>) : RecyclerView.Adapter<S
             }
         }
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
         val ui = SongBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SongViewHolder(ui)
+        return PlaylistViewHolder(ui)
     }
 
     override fun getItemCount(): Int {
-        return songs.size
+        return playlists.size
     }
     // modification ajouté :thibaute
-    override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
-        holder.song = songs[position]
+    override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
+        holder.playlist = playlists[position]
         /*holder.onItemClick = onItemClick
         holder.onEditClick = onEditClick
         holder.onDeleteClick = onDeletClick*/

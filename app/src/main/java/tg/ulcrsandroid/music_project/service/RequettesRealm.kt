@@ -149,9 +149,8 @@ class RequettesRealm (realm: Realm){
         return realm.where(Chanson::class.java).findAllAsync()
     }
     fun getFavSong() : RealmResults<Chanson>? {
-        realm = Realm.getDefaultInstance()
         var favSongs: RealmResults<Chanson>? = null
-        realm.executeTransactionAsync {
+        realm.executeTransaction {
             favSongs = it.where(Chanson::class.java)
                 .equalTo(Chanson.ISFAV, true)
                 .findAll()

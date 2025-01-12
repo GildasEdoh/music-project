@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/delete"
+        android:title="delete" />
+    <item
+        android:id="@+id/edit"
+        android:title="Edit" />
+
+    <item
+        android:id="@+id/add_to_favorites"
+        android:title="Add to favorite" />
+    <item
+        android:id="@+id/add_to_playlist"
+        android:title="add to playlist" />
+    <item
+        android:id="@+id/view_details"
+        android:title="details" />
+    <item
+        android:id="@+id/play_next"
+        android:title="play next" />
+</menu>

@@ -14,6 +14,7 @@ class SongAdapter(var songs: RealmResults<Chanson>) : RecyclerView.Adapter<SongV
     lateinit var onEditClick: (ObjectId?) -> Unit
     lateinit var onDeletClick: (ObjectId?) -> Unit
     lateinit var onAddToFavorites: (ObjectId?) -> Unit
+    private var filteredSongs: List<Chanson> = songs
     init {
         songs.addChangeListener { _, changeSet ->
             for (change in changeSet.deletionRanges) {
@@ -33,26 +34,31 @@ class SongAdapter(var songs: RealmResults<Chanson>) : RecyclerView.Adapter<SongV
     }
 
     override fun getItemCount(): Int {
-        return songs.size
+        return filteredSongs.size
     }
 
-    // modification ajouté :thibaute
-
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
-        holder.song = songs[position]
+        holder.song = filteredSongs[position]
         holder.onItemClick = onItemClick
         holder.onEditClick = onEditClick
         holder.onDeleteClick = onDeletClick
         holder.addToFavorites = onAddToFavorites
     }
-    fun filterList(filteredList: List<Chanson>) {
-        songs.clear()
-        songs.addAll(filteredList)
-        //notifyDataSetChanged()
+    fun filter(query: String) {
+        val searchQuery = query.lowercase()
+        filteredSongs = if (searchQuery.isEmpty()) {
+            songs.toList() // Convertir RealmResults en liste
+        } else {
+            songs.filter { chanson ->
+                chanson.titre?.lowercase()?.contains(searchQuery) == true ||
+                        chanson.artistePrincipal?.nom?.lowercase()?.contains(searchQuery) == true
+            }
+        }
+        notifyDataSetChanged()
     }
-    fun updateSongs(favSongs: RealmResults<Chanson>) {
-        songs = favSongs
-        //notifyDataSetChanged()
+    fun updateSongs(newSongs: RealmResults<Chanson>) {
+        songs = newSongs
+        filteredSongs = songs.toList() // Met à jour la liste filtrée
+        notifyDataSetChanged()
     }
-
 }

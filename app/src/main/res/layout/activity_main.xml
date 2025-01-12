@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#2B1D50">
 
 
     <LinearLayout
@@ -13,8 +14,7 @@
         android:layout_height="wrap_content"
         android:background="#2B1D50"
         android:orientation="horizontal"
-        android:padding="50dp">
-
+        android:paddingTop="20dp">
 
         <ImageView
             android:id="@+id/back_icon"
@@ -33,8 +33,6 @@
             android:orientation="horizontal"
             android:padding="10dp">
 
-
-
             <EditText
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
@@ -52,29 +50,35 @@
                 android:contentDescription="Search"
                 android:src="@drawable/ic_recherche_foreground" />
         </LinearLayout>
-
     </LinearLayout>
+    <include
+        android:id="@+id/includeSong"
+        layout="@layout/playing_song"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="511dp"
+        android:layout_height="480dp"
         android:background="#2B1D50"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context=".ui.MainActivity" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="60dp"
         android:background="#473A7E"
         android:orientation="horizontal"
         android:padding="10dp"
-        android:weightSum="5">
+        android:layout_margin="5dp"
+        android:weightSum="4">
 
         <ImageView
             android:id="@+id/home_icon"
             android:layout_width="20dp"
-            android:layout_height="80dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:padding="8dp"
             android:src="@drawable/ic_home_foreground" />
@@ -82,7 +86,7 @@
         <ImageView
             android:id="@+id/favorite_icon"
             android:layout_width="20dp"
-            android:layout_height="80dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:padding="10dp"
             android:src="@drawable/ic_action_favorite" />
@@ -90,23 +94,14 @@
         <ImageView
             android:id="@+id/music_icon"
             android:layout_width="20dp"
-            android:layout_height="80dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:padding="10dp"
             android:src="@drawable/dossier" />
-
-        <ImageView
-            android:id="@+id/time_icon"
-            android:layout_width="20dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:src="@drawable/ic_time_foreground" />
-
         <ImageView
             android:id="@+id/setting_icon"
             android:layout_width="20dp"
-            android:layout_height="80dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:padding="8dp"
             android:src="@drawable/ic_setting_foreground" />

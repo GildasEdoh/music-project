@@ -43,6 +43,7 @@ class DashBoard : AppCompatActivity() {
         var favorisLayout = ui.favoris
         favorisLayout.setOnClickListener {
             Log.i("DEBUG", "Clic sur favoris")
+            startFavoris()
         }
 
         var recentLayout = ui.recents
@@ -55,6 +56,7 @@ class DashBoard : AppCompatActivity() {
             Log.i("DEBUG", "Clic sur playlist")
             startPlaylist()
         }
+
         realm = Realm.getDefaultInstance()
         requettesRealm = RequettesRealm(realm)
 
@@ -71,6 +73,7 @@ class DashBoard : AppCompatActivity() {
         // Nbre initial de morceaux
         ui.nbrSongs.text = realmResults.size.toString()
     }
+
     fun startMain() {
         Log.i(TAG, "Lancement du du main ")
         // Lancer l'activite main
@@ -81,6 +84,7 @@ class DashBoard : AppCompatActivity() {
             startActivity(intentMain)
         }, 100)
     }
+
     fun startFavoris() {
 
     }

@@ -11,7 +11,10 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -104,10 +107,41 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Recherche en temps reel d'une chanson
+        ui.searchBar.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Rien à faire ici
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Filtrer la liste lorsque le texte change
+                songAdapter.filter(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // Rien à faire ici
+            }
+        })
     }
+    private fun filterSongs(query: String?) {
+        val allSongs = requetteRealm.getAllRealmSongs() // Récupère toutes les chansons
+        val filteredSongs = if (!query.isNullOrEmpty()) {
+            allSongs.filter {
+                it.titre!!.contains(query, ignoreCase = true) ||
+                        it.artistePrincipal!!.nom.contains(query, ignoreCase = true)
+            }
+        } else {
+            allSongs // Si le texte est vide, afficher toutes les chansons
+        }
+
+        songAdapter.updateSongs(filteredSongs as RealmResults<Chanson>)
+    }
+
     private fun addToFavorite(idChanson: ObjectId?) {
         Log.i("MAIN", "Add to favorites")
         requetteRealm.addSongToFavorite(idChanson)
+
+        Toast.makeText(this, "Chanson ajoutée aux favoris", Toast.LENGTH_SHORT).show()
     }
     private fun swithcToPlaylist() {
         Log.i(TAG, "Lancement de Playlist ")
@@ -132,9 +166,28 @@ class MainActivity : AppCompatActivity() {
         Log.i("ACTION", "Action sur la chanson ${chansonEnCous?.url}")
         if (this.chansonEnCous != null) {
             precChanson = this.chansonEnCous
+            ui.includeSong.titre.text = this.chansonEnCous!!.titre.toString()
+            ui.includeSong.artiste.text = this.chansonEnCous!!.artistePrincipal.toString()
             startLecteur(chansonEnCous)
             Log.i("ACTION", "Lecture de la chanson ${chansonEnCous?.url}")
         }
+    }
+    private fun updateProgress() {
+        val progressBar = ui.includeSong.progressBar
+        val duration = audioService?.getDuration() ?: 0
+        progressBar.max = duration
+
+        val handler = Handler(mainLooper)
+        val updateTask = object : Runnable {
+            override fun run() {
+                if (isServiceBound) {
+                    val currentPosition = audioService?.getCurrentPosition() ?: 0
+                    progressBar.progress = currentPosition
+                    handler.postDelayed(this, 500)
+                }
+            }
+        }
+        handler.post(updateTask)
     }
     private fun onDeleteClick(idChanson: ObjectId?) {
         // Suppression Chanson
@@ -170,6 +223,8 @@ class MainActivity : AppCompatActivity() {
         handler.postDelayed({
             startActivity(intentLecteur)
         }, 1000)
+    }
+    private fun viewPlayingBar() {
     }
     //
     private fun checkAndRequestPermissions(context: Context) {
@@ -262,6 +317,9 @@ class MainActivity : AppCompatActivity() {
             val binder = service as AudioPlayerService.AudioPlayerBinder
             audioService = binder.getService()
             isServiceBound = true
+            if (audioService != null) {
+                updateProgress()
+            }
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {

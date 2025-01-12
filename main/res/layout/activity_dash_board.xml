@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2B1D50"
+    tools:context=".ui.DashBoard">
+
+    <!-- Barre contenant les paramètres, le titre et la recherche -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="409dp"
+        android:layout_height="63dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023">
+
+        <ImageView
+            android:id="@+id/parametres"
+            android:layout_width="70dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="4dp"
+            android:contentDescription="@string/settings"
+            android:src="@drawable/ic_setting_foreground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/title"
+            app:layout_constraintHorizontal_bias="0.03"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.375" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ma Musiqe"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Icône de recherche -->
+        <ImageView
+            android:id="@+id/recherche"
+            android:layout_width="56dp"
+            android:layout_height="53dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/search"
+            android:src="@drawable/ic_recherche_foreground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Infos musique -->
+
+
+    <ImageView
+        android:id="@+id/logo_image"
+        android:layout_width="0dp"
+        android:layout_height="600dp"
+        android:layout_marginTop="4dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/notes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/music_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="264dp"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/play_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="Play"
+            android:src="@drawable/ic_play_foreground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/music_name"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="72dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Titre"
+            android:textColor="#FEFFFF"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="500dp"
+        android:layout_height="259dp"
+        android:columnCount="2"
+        android:rowCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="1.0">
+
+        <!-- Tous les morceaux -->
+        <LinearLayout
+            android:id="@+id/morceaux"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_row="0"
+            android:layout_rowWeight="1"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#C8473A7E"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/music_note_icon"
+                android:layout_width="40dp"
+                android:layout_height="47dp"
+                android:src="@drawable/ic_action_headphones" />
+
+            <TextView
+                android:id="@+id/all_songs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="morceaux: "
+                android:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/nbr_songs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="8dp"
+                android:textSize="20dp"/>
+
+        </LinearLayout>
+
+        <!-- Favoris -->
+        <LinearLayout
+            android:id="@+id/favoris"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_row="0"
+            android:layout_rowWeight="1"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#C8473A7E"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/favorites_icon"
+                android:layout_width="40dp"
+                android:layout_height="47dp"
+                android:src="@drawable/ic_action_favorite" />
+
+            <TextView
+                android:id="@+id/favorites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Favoris"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <!-- PlayList -->
+        <LinearLayout
+            android:id="@+id/playlist"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_row="1"
+            android:layout_rowWeight="1"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="#C8473A7E"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/playlist_icon"
+                android:layout_width="40dp"
+                android:layout_height="47dp"
+                android:src="@drawable/dossier" />
+
+            <TextView
+                android:id="@+id/playlist_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="   PlayList"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+        <!-- Récents -->
+        <LinearLayout
+            android:id="@+id/recents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_row="1"
+            android:layout_rowWeight="1"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="#C8473A7E"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/recent_icon"
+                android:layout_width="40dp"
+                android:layout_height="47dp"
+                android:src="@drawable/ic_time_foreground" />
+
+            <TextView
+                android:id="@+id/recent_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Récents"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
