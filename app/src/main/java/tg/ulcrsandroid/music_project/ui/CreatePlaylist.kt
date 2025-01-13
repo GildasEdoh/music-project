@@ -1,6 +1,7 @@
 package tg.ulcrsandroid.music_project.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -38,5 +39,6 @@ class CreatePlaylist : AppCompatActivity() {
     }
     private fun createPlaylist(nom: String, idChanson: ObjectId?) {
         requetteRealm.createPlaylist(nom, idChanson)
+        Toast.makeText(this, "Chanson ajoutée aux favoris", Toast.LENGTH_SHORT).show()
     }
 }
