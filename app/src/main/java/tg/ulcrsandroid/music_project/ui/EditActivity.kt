@@ -49,6 +49,9 @@ class EditActivity : AppCompatActivity() {
             saveModifs()
             Log.i("EDIT ACT", "Submission")
         }
+        ui.backIcon.setOnClickListener {
+            finish()
+        }
     }
 
     private fun loadSongDetails() {

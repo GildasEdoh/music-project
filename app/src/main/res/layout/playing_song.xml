@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="5dp"
-        android:background="#473A7E"
+        android:background="#333333"
         android:gravity="center_vertical">
 
         <!-- Icone de la chanson -->

@@ -16,6 +16,7 @@ class SongAdapter(var songs: RealmResults<Chanson>) : RecyclerView.Adapter<SongV
     lateinit var onDeletClick: (ObjectId?) -> Unit
     lateinit var onAddToFavorites: (ObjectId?) -> Unit
     private var filteredSongs: List<Chanson> = songs
+    lateinit var addToPlaylist: (ObjectId?) -> Unit
     private var currentSongIndex = 0
     init {
         songs.addChangeListener { _, changeSet ->
@@ -46,6 +47,7 @@ class SongAdapter(var songs: RealmResults<Chanson>) : RecyclerView.Adapter<SongV
         holder.onEditClick = onEditClick
         holder.onDeleteClick = onDeletClick
         holder.addToFavorites = onAddToFavorites
+        holder.addToPlaylist = addToPlaylist
     }
     fun filter(query: String) {
         val searchQuery = query.lowercase()

@@ -5,13 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#1A1A1A">
 
     <!-- Barre supérieure -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2B1D50"
+        android:background="#1A1A1A"
         android:orientation="horizontal"
         android:padding="16dp"
         android:layout_marginBottom="0dp">
@@ -30,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:background="#C8473A7E"
+            android:background="#333333"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="10dp">
@@ -51,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#2B1D50"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:context=".ui.MainActivity" />
+        tools:context=".ui.PlaylistActivity"
+        android:background="#1A1A1A"/>
 </LinearLayout>

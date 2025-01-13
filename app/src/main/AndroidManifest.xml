@@ -20,6 +20,18 @@
         android:theme="@style/Theme.Musicproject"
         tools:targetApi="31">
         <activity
+            android:name=".ui.CreatePlaylist"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AddToPlaylist"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MainActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".ui.PlaylistAdd"
+            android:exported="false" />
+        <activity
             android:name=".ui.Favorite"
             android:exported="false" />
         <activity

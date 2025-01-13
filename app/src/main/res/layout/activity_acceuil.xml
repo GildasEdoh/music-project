@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2B1D50"
+    android:background="#1A1A1A"
     tools:context=".ui.MainActivity"
     android:id="@+id/main">
         <!-- Icône musicale -->

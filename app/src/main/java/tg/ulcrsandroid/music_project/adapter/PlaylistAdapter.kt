@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import io.realm.RealmResults
 import org.bson.types.ObjectId
-import tg.ulcrsandroid.music_project.databinding.SongBinding
+import tg.ulcrsandroid.music_project.databinding.PlaylistBinding
 import tg.ulcrsandroid.music_project.model.Playlist
 import tg.ulcrsandroid.music_project.view_holder.PlaylistViewHolder
 
@@ -29,7 +29,7 @@ class PlaylistAdapter(val playlists: RealmResults<Playlist>) : RecyclerView.Adap
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
-        val ui = SongBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val ui = PlaylistBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PlaylistViewHolder(ui)
     }
 
@@ -39,8 +39,8 @@ class PlaylistAdapter(val playlists: RealmResults<Playlist>) : RecyclerView.Adap
     // modification ajouté :thibaute
     override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
         holder.playlist = playlists[position]
-        /*holder.onItemClick = onItemClick
-        holder.onEditClick = onEditClick
+        holder.onItemClick = onItemClick
+        /*holder.onEditClick = onEditClick
         holder.onDeleteClick = onDeletClick*/
     }
 

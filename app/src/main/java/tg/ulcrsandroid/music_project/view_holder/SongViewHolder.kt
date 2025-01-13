@@ -19,6 +19,7 @@ class SongViewHolder(val ui: SongBinding): RecyclerView.ViewHolder(ui.root) {
     lateinit var onItemClick: (ObjectId?) -> Unit
     lateinit var onDeleteClick: (ObjectId?) -> Unit // Callback pour la suppression
     lateinit var addToFavorites: (ObjectId?) -> Unit
+    lateinit var addToPlaylist: (ObjectId?) -> Unit
 
     companion object {
         val MENU_DELETE = 1
@@ -83,6 +84,7 @@ class SongViewHolder(val ui: SongBinding): RecyclerView.ViewHolder(ui.root) {
                 }
                 R.id.add_to_playlist -> {
                     Log.i("MUSIC", "Ajouter à la playlist")
+                    addToPlaylist(idChanson)
                     true
                 }
                 else -> false

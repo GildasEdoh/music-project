@@ -10,6 +10,7 @@ import org.bson.types.ObjectId
 import tg.ulcrsandroid.music_project.model.Album
 import tg.ulcrsandroid.music_project.model.Artiste
 import tg.ulcrsandroid.music_project.model.Chanson
+import tg.ulcrsandroid.music_project.model.Playlist
 import tg.ulcrsandroid.music_project.model.SongData
 import java.io.File
 
@@ -157,5 +158,27 @@ class RequettesRealm (realm: Realm){
             Log.i("Requette", "fsongs ${favSongs}")
         }
         return favSongs
+    }
+    fun createPlaylist(nom: String, idChanson: ObjectId?) {
+        val chanson = getChansonById(idChanson)
+        realm.executeTransaction  {
+            val artiste = it.createObject(Playlist::class.java, ObjectId()).apply {
+                this.nom = nom
+                this.chansons.add(chanson)
+            }
+            Log.i("Requette", "Creation reussie")
+        }
+    }
+    fun addSongToPlaylist(nom: String, idChanson: ObjectId?) {
+        val chanson = getChansonById(idChanson)
+        realm.executeTransaction {
+            it.where(Playlist::class.java).equalTo(Playlist.NOM, nom)
+                .findFirst()?.apply {
+                    this.chansons.add(chanson)
+                }
+        }
+    }
+    fun getAllPlaylists() : List<Playlist>? {
+        return realm.where(Playlist::class.java).findAllAsync()
     }
 }

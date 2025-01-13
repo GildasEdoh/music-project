@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         songAdapter.onDeletClick = this::onDeleteClick
         songAdapter.onEditClick = this::onEditClick
         songAdapter.onAddToFavorites = this::addToFavorite
-
+        songAdapter.addToPlaylist = this::addToPlaylist
        ui.homeIcon.setOnClickListener {
            switchToDashbord()
        }
@@ -122,6 +122,14 @@ class MainActivity : AppCompatActivity() {
                 // Rien à faire ici
             }
         })
+    }
+    private fun addToPlaylist(idChanson: ObjectId?) {
+        Log.i(TAG, "Lancement de add TO Playlist ")
+        // Lancer l'activite main
+        val intentPlaylist = Intent(this, AddToPlaylist::class.java)
+        intentPlaylist.putExtra(EXTRA_ID, idChanson?.toHexString())
+        startActivity(intentPlaylist)
+        Log.i(TAG, "Fin de l'activite main ")
     }
     private fun filterSongs(query: String?) {
         val allSongs = requetteRealm.getAllRealmSongs() // Récupère toutes les chansons
